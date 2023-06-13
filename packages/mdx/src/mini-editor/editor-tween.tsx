@@ -102,6 +102,7 @@ function EditorTween({
         <CopyButton
           className="ch-editor-button"
           content={northContent}
+          transformContent={codeConfig.transformCopyContent}
         />
       ) : undefined}
       {showExpandButton ? (
@@ -117,6 +118,8 @@ function EditorTween({
     <CopyButton
       className="ch-editor-button"
       content={southContent}
+      transformContent={codeConfig.transformCopyContent}
+
     />
   ) : undefined
 

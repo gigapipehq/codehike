@@ -57,6 +57,7 @@ export function mergeCodeConfig<T>(
         : showExpandButton,
     rows: props.rows,
     debug: props.debug ?? props.codeConfig?.debug,
+    transformCopyContent: props.transformCopyContent 
   }
   return { ...rest, codeConfig }
 }
@@ -68,7 +69,7 @@ export function InnerCode({
   onTabClick?: (filename: string) => void
 } & Partial<CodeHikeConfig>) {
   const { className, style, codeConfig, ...editorProps } =
-    mergeCodeConfig(props)
+  mergeCodeConfig(props)
 
   if (
     !props.southPanel &&

@@ -2,15 +2,16 @@ import React from "react"
 
 export function CopyButton({
   content,
+  transformContent,
   style,
   className,
 }: {
   content: string
+  transformContent?: (content: string) => string
   style?: React.CSSProperties
   className?: string
 }) {
   const [copied, setCopied] = React.useState(false)
-
   return (
     <button
       type="button"
@@ -18,7 +19,7 @@ export function CopyButton({
       className={className}
       style={style}
       onClick={() => {
-        copyToClipboard(content)
+        copyToClipboard(transformContent ? transformContent(content) : content)
         setCopied(true)
         setTimeout(() => {
           setCopied(false)

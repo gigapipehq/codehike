@@ -42,6 +42,7 @@ export type CodeConfig = {
   horizontalCenter?: boolean
   lineNumbers?: boolean
   showCopyButton?: boolean
+  transformCopyContent?: (content: string) => string
   showExpandButton?: boolean
   staticMediaQuery?: string
   rows?: number | "focus" | (number | "focus")[]
@@ -148,6 +149,7 @@ function AfterDimensions({
         <CopyButton
           className="ch-code-button"
           content={stepInfo?.code?.prev}
+          transformContent={config.transformCopyContent}
         />
       ) : undefined}
     </Wrapper>
