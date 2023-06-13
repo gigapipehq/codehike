@@ -1,11 +1,16 @@
 # Hello
 
 Lorem ipsum dolor sit amet.
+{props.loremPlaceholder}
+{props.ipsumPlaceholder}
 
-```python hello.py mark=1[22:30]
-print("Rendered with Code Hike")
+<CH.Code transformCopyContent={(content) => content.replace('{{LOREM}}', props.loremPlaceholder).replace('{{IPSUM}}', props.ipsumPlaceholder)}>
+```javascript
+const lorem = {{LOREM}} ipsum
+const ipsum = {{IPSUM}} lorem
 ```
-
+ </CH.Code> 
+{/*  
 Lorem ipsum dolor sit amet.
 
 # Scrollycoding
@@ -232,4 +237,4 @@ function adipiscing(...elit) {
 
 ```
 
-</CH.Spotlight>
+</CH.Spotlight> */}

@@ -4,7 +4,7 @@ import Content from "./hello.mdx"
 function App() {
   return (
     <div style={{ maxWidth: 768, margin: "0 auto", fontFamily: "sans-serif" }}>
-      <Content />
+      <Content loremPlaceholder="AHA!" ipsumPlaceholder="AHA!" />
     </div>
   )
 }
