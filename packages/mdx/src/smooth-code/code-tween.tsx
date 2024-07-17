@@ -35,6 +35,23 @@ export type CodeStep = {
   focus: FocusString
   annotations?: CodeAnnotation[]
 }
+export type CodeConfig = {
+  /* not really the height, when this changes we measure everything again */
+  parentHeight?: any
+  minColumns?: number
+  minZoom?: number
+  maxZoom?: number
+  horizontalCenter?: boolean
+  lineNumbers?: boolean
+  showCopyButton?: boolean
+  transformCopyContent?: (content: string) => string
+  showExpandButton?: boolean
+  staticMediaQuery?: string
+  rows?: number | "focus" | (number | "focus")[]
+  triggerPosition?: TriggerPosition
+  debug?: boolean
+  themeName?: string
+}
 
 function useCodeShift({
   tween,
@@ -133,20 +150,13 @@ function AfterDimensions({
         maxZoom={maxZoom}
         center={horizontalCenter}
       />
-      <div className="ch-code-buttons">
-        {config.showCopyButton ? (
-          <CopyButton
-            className="ch-code-button"
-            content={stepInfo?.code?.prev}
-          />
-        ) : undefined}
-        {config.showExpandButton ? (
-          <CodeExpandButton
-            className="ch-code-button"
-            step={tween.prev}
-          />
-        ) : undefined}
-      </div>
+      {config.showCopyButton ? (
+        <CopyButton
+          className="ch-code-button"
+          content={stepInfo?.code?.prev}
+          transformContent={config.transformCopyContent}
+        />
+      ) : undefined}
     </Wrapper>
   )
 }

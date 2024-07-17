@@ -11,7 +11,7 @@ export default defineConfig(async () => {
     plugins: [
       react(),
       mdx.default({
-        remarkPlugins: [[remarkCodeHike, { theme: "material-palenight" }]],
+        remarkPlugins: [[remarkCodeHike, { theme: "material-palenight", showCopyButton:true}]],
       }),
     ],
   }

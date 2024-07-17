@@ -37,23 +37,56 @@ export function Code(props: Props) {
   )
 }
 
-type InnerCodeProps = {
-  onTabClick: (filename: string) => void
-  globalConfig: GlobalConfig
-  editorStep: EditorStep
-  codeConfigProps: CodeConfigProps & ElementProps
+// build the CodeConfig from props and props.codeConfig
+export function mergeCodeConfig<T>(
+  props: Partial<CodeConfig> & {
+    codeConfig: Partial<CodeConfig>
+  } & T
+) {
+  const {
+    lineNumbers,
+    showCopyButton,
+    showExpandButton,
+    minZoom,
+    maxZoom,
+    ...rest
+  } = props
+  const codeConfig = {
+    ...props.codeConfig,
+    maxZoom:
+      maxZoom == null ? props.codeConfig?.maxZoom : maxZoom,
+    minZoom:
+      minZoom == null ? props.codeConfig?.minZoom : minZoom,
+    horizontalCenter:
+      props.codeConfig?.horizontalCenter ??
+      props.horizontalCenter,
+    lineNumbers:
+      lineNumbers == null
+        ? props.codeConfig?.lineNumbers
+        : lineNumbers,
+    showCopyButton:
+      showCopyButton == null
+        ? props.codeConfig?.showCopyButton
+        : showCopyButton,
+    showExpandButton:
+      showExpandButton == null
+        ? props.codeConfig?.showExpandButton
+        : showExpandButton,
+    rows: props.rows,
+    debug: props.debug ?? props.codeConfig?.debug,
+    transformCopyContent: props.transformCopyContent 
+  }
+  return { ...rest, codeConfig }
 }
 
 export function InnerCode({
   onTabClick,
-  globalConfig,
-  editorStep,
-  codeConfigProps,
-}: InnerCodeProps) {
-  const { className, style, ...config } = mergeCodeConfig(
-    globalConfig,
-    codeConfigProps
-  )
+  ...props
+}: EditorProps & {
+  onTabClick?: (filename: string) => void
+} & Partial<CodeHikeConfig>) {
+  const { className, style, codeConfig, ...editorProps } =
+  mergeCodeConfig(props)
 
   if (
     !editorStep.southPanel &&
